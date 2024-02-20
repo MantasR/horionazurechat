@@ -82,18 +82,18 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            rg=$(az webapp list --query "[?name=='${{ secrets.AZURE_APP_SERVICE_NAME }}'].resourceGroup" --output tsv)
-            echo Setting SCM_DO_BUILD_DURING_DEPLOYMENT=false on app service ${{ secrets.AZURE_APP_SERVICE_NAME }}
-            az webapp config appsettings set -n ${{ secrets.AZURE_APP_SERVICE_NAME }} -g $rg --settings SCM_DO_BUILD_DURING_DEPLOYMENT=false -o none
-            echo Setting --startup-file=\"node server.js\" on app service ${{ secrets.AZURE_APP_SERVICE_NAME }}
-            az webapp config set --startup-file="node server.js" -n ${{ secrets.AZURE_APP_SERVICE_NAME }} -g $rg -o none
+            rg=$(az webapp list --query "[?name=='horionchatprivate-webapp-oqe4qj3itft7c'].resourceGroup" --output tsv)
+            echo Setting SCM_DO_BUILD_DURING_DEPLOYMENT=false on app service horionchatprivate-webapp-oqe4qj3itft7c
+            az webapp config appsettings set -n horionchatprivate-webapp-oqe4qj3itft7c -g $rg --settings SCM_DO_BUILD_DURING_DEPLOYMENT=false -o none
+            echo Setting --startup-file=\"node server.js\" on app service horionchatprivate-webapp-oqe4qj3itft7c
+            az webapp config set --startup-file="node server.js" -n horionchatprivate-webapp-oqe4qj3itft7c -g $rg -o none
             sleep 10
 
       - name: 🚀 Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ secrets.AZURE_APP_SERVICE_NAME }}
+          app-name: horionchatprivate-webapp-oqe4qj3itft7c
           package: ${{ github.workspace }}/Nextjs-site.zip
 
       - name: 🧹 Cleanup
